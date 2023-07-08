@@ -28,8 +28,8 @@ def se_pre_partition(data, verbose=True):
     # k = 10
     # k = 78  # for asymmetric
     edges, ew = build_knn_graph(data, k)
-    dist = scatter_sum(ew, edges[:, 1], dim_size=ew.shape[0]) + scatter_sum(
-        ew, edges[:, 0], dim_size=ew.shape[0])
+    dist = scatter_sum(ew, edges[:, 1], dim_size=n_sample) + scatter_sum(
+        ew, edges[:, 0], dim_size=n_sample)
     dist = dist / (2 * ew.sum())
     g = GraphSparse(edges, ew, dist)
     optim = OperatorPropagation(Partitioning(g, None))
